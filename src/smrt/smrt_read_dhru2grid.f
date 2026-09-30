@@ -59,6 +59,9 @@
           allocate(d2g_map(i)%dhru_perc(num_cell_dhrus))
           read(6002,*) (d2g_map(i)%dhru_id(j),j=1,num_cell_dhrus) ! list of dhru ID numbers which contribute to this grid cell
           read(6002,*) (d2g_map(i)%dhru_perc(j),j=1,num_cell_dhrus) ! list of % areas of that dhru contributing to this grid cell
+        else
+          allocate(d2g_map(i)%dhru_id(0))
+          allocate(d2g_map(i)%dhru_perc(0))
         endif
         
       enddo

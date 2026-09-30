@@ -78,7 +78,7 @@
       call readlup
       call readfig
       call readatmodep
-      if(mf_active) call smrt_init_mf !rtb MODFLOW
+      if(mf_active /= 0) call smrt_init_mf !rtb MODFLOW
       call readinpt
       call std1
       call std2

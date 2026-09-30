@@ -155,11 +155,11 @@
         allocate(smrt_csolute_avg_mo(ncol,nrow,nlay,2))
         allocate(smrt_csolute_tot_yr(ncol,nrow,nlay,2))
         allocate(smrt_csolute_avg_yr(ncol,nrow,nlay,2))
+        smrt_csolute_tot_mo = 0.
+        smrt_csolute_avg_mo = 0.
+        smrt_csolute_tot_yr = 0.
+        smrt_csolute_avg_yr = 0.
       endif
-      smrt_csolute_tot_mo = 0.
-      smrt_csolute_avg_mo = 0.
-      smrt_csolute_tot_yr = 0.
-      smrt_csolute_avg_yr = 0.
 
       area_print = 1
 

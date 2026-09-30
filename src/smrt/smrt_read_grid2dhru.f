@@ -69,6 +69,9 @@
         read(6004,*) (g2d_map(i)%cell_perc(j),j=1,num_dhru_cells)
 
         else
+          allocate(g2d_map(i)%cell_row(0))
+          allocate(g2d_map(i)%cell_col(0))
+          allocate(g2d_map(i)%cell_perc(0))
           read(6004,*)
           read(6004,*)
           read(6004,*)
