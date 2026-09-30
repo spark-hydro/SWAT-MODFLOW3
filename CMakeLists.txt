@@ -12,6 +12,8 @@ cmake_host_system_information(RESULT os_like QUERY DISTRIB_ID_LIKE)
 
 project(swatmf3 VERSION 3.0 LANGUAGES Fortran)
 
+include(CTest)
+
 if(NOT TAG)
     find_package(Git QUIET)
     if(GIT_FOUND)
@@ -92,6 +94,17 @@ set_target_properties(${SWATMF_EXE} PROPERTIES
 )
 
 install(TARGETS ${SWATMF_EXE} RUNTIME DESTINATION ${PROJECT_SOURCE_DIR}/builds)
+
+# Regression test: runs the dataset and compares with its reference outputs.
+# The dataset is not in git (see .gitignore); pass -DSWATMF_DATASET=<dir> or
+# put it in ./swatmf3-dataset.
+find_package(Python3 QUIET COMPONENTS Interpreter)
+set(SWATMF_DATASET "${PROJECT_SOURCE_DIR}/swatmf3-dataset" CACHE PATH "Model folder for the regression test")
+if(Python3_FOUND AND EXISTS "${SWATMF_DATASET}/file.cio")
+    add_test(NAME dataset_regression
+             COMMAND ${Python3_EXECUTABLE} ${PROJECT_SOURCE_DIR}/scripts/regress.py
+                     $<TARGET_FILE:${SWATMF_EXE}> ${SWATMF_DATASET})
+endif()
 
 message("-- Build Type   ${CMAKE_BUILD_TYPE}")
 message("-- Compiler     ${CMAKE_Fortran_COMPILER} (${CMAKE_Fortran_COMPILER_ID} ${CMAKE_Fortran_COMPILER_VERSION})")
