@@ -1965,19 +1965,14 @@ C13-----WRITE THE FILE NAME AND OPEN IT.
 
 cDEC$ IF DEFINED (__INTEL_COMPILER)
 cDEC$ ELSE
-      ! When compiled and run using gfortran, the output file cannot be
-      !  opened with form='BINARY' because that's an Intel Visual
-      !  Fortran addition.
-      if (fmtarg(1:6).eq.'BINARY') then !aqd
-        write(*,*) '*******************************************'
-        write(*,*) 'BINARY FILES WRITTEN USING THE GFORTRAN'
-        write(*,*) ' COMPILER ARE NOT FORMATTED AS THOSE FROM'
-        write(*,*) ' INTEL VISUAL FORTRAN, AND ARE THEREFORE'
-        write(*,*) ' WILL BE WRITTEN AS TEXT.'
-        write(*,*) '*******************************************'
-        fmtarg='FORMATTED' !aqd
-        accarg='STREAM' !aqd
-      endif !aqd
+      ! Intel Visual Fortran's form='BINARY' is a raw file with no record
+      !  markers. gfortran has no such form, but unformatted stream access
+      !  writes the same byte layout, so FloPy and other MODFLOW readers can
+      !  read the file.
+      if (fmtarg(1:6).eq.'BINARY') then
+        fmtarg='UNFORMATTED'
+        accarg='STREAM'
+      endif
 cDEC$ ENDIF
 
       OPEN(UNIT=IU,FILE=FNAME(1:IFLEN),FORM=FMTARG,
