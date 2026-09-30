@@ -46,16 +46,22 @@ def compare(ref, new, rtol, floor):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawTextHelpFormatter)
-    ap.add_argument('exe', help='SWAT-MODFLOW3 executable')
-    ap.add_argument('dataset', help='model folder with file.cio and reference outputs')
+    ap.add_argument('paths', nargs='+', metavar='exe... dataset',
+                    help='executable(s) followed by the model folder. If a glob matches\n'
+                         'several executables (the name changes with each commit), the newest is used.')
     ap.add_argument('--rtol', type=float, default=1e-3, help='max relative difference (default 1e-3)')
     ap.add_argument('--floor', type=float, default=1e-6, help='denominator floor for tiny values')
     ap.add_argument('--keep', action='store_true', help='keep the scratch run folder')
     args = ap.parse_args()
 
-    exe, ref_dir = os.path.abspath(args.exe), os.path.abspath(args.dataset)
-    if not os.path.isfile(exe):
-        sys.exit(f'executable not found: {exe}')
+    if len(args.paths) < 2:
+        ap.error('need an executable and a dataset folder')
+    exes = [p for p in args.paths[:-1] if os.path.isfile(p)]
+    if not exes:
+        sys.exit(f'executable not found: {args.paths[:-1]}')
+    exe = os.path.abspath(max(exes, key=os.path.getmtime))
+    ref_dir = os.path.abspath(args.paths[-1])
+    print(f'executable: {exe}')
     if not os.path.isfile(os.path.join(ref_dir, 'file.cio')):
         sys.exit(f'no file.cio in {ref_dir}')
 
