@@ -242,7 +242,7 @@
                 
          Endif
          
-        ! no outlet control: all the infiltration water is added to shallow aquifer recharge for next day\
+        ! no outlet control: all the infiltration water is added to shallow aquifer recharge for next day
         if (sf_ptp(sb,kk)==0) then
            bmp_recharge(sb) = bmp_recharge(sb) 
      &                         + qout(ii) / (sub_ha*10000.- tsa) *1000.

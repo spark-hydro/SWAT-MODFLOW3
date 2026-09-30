@@ -183,7 +183,7 @@
       write(6008,*) 'swatmf_link.txt:    output control has been read'
 
       !open files for variable average output (rtb avg) -----------------------------------------------------
-      if(swatmf_out_avg) then
+      if(swatmf_out_avg /= 0) then
         
         !recharge (modflow)
         open(30020,file='swatmf_out_MF_recharge_monthly')

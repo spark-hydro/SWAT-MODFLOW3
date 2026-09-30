@@ -212,7 +212,6 @@ C     Initialize daycount (for mf_read subroutine) and read_stress flag
 
       !Read in observation cells (for output at each time step)
       num_MF_obs = 0
-      MF_obs = 0
       if(mf_obs_flag.eq.1) then
         open(30050,file='modflow.obs')
         read(30050,*)

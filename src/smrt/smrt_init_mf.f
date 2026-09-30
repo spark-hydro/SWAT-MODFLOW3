@@ -67,7 +67,7 @@
       enddo !go to the next HRU
 
       !read RT3D information if active
-      if(rt_active) call smrt_init_rt3d
+      if(rt_active /= 0) call smrt_init_rt3d
 
       !write out information to log file
       write(6008,*) 'swatmf_init: initialization finished'

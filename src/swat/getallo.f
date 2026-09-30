@@ -125,7 +125,7 @@
       nwtot = 0
       nstep = 0
       myr = 0
-      quitscenario = .false. !aqd
+      quitscenario = 0. !aqd
       computegw = .true. !aqd
       computenutr = .true. !aqd
       initializeRCHloss = .true. !tcw

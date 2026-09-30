@@ -81,7 +81,7 @@
         mf_sub_irrigate(n,2) = cell_row
         mf_sub_irrigate(n,3) = cell_col
         mf_sub_irrigate(n,4) = hru_id
-        if(mf_irrigation_swat) mf_sub_irrigate(n,5) = cell_lay
+        if(mf_irrigation_swat /= 0) mf_sub_irrigate(n,5) = cell_lay
 
       enddo
 

@@ -451,7 +451,7 @@
       cnv = 10. * hru_ha(j)
 
       !rtb MODFLOW
-      if(mf_active) normOut = .false.
+      if(mf_active /= 0) normOut = .false.
 
       if (curyr > nyskip) then
       !! HRU summations

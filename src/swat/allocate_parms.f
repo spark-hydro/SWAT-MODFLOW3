@@ -1425,8 +1425,8 @@
       allocate (icols(mhruo))
       allocate (ipdvas(mhruo))
       allocate (hrumono(75,mhru)) !changed to 75, for sw_gw and drn_q !rtb drain
-      allocate (hruyro(73,mhru))
-      allocate (hruaao(73,mhru))
+      allocate (hruyro(75,mhru))
+      allocate (hruaao(75,mhru))
       allocate (wtrmon(40,mhru))
       allocate (wtryr(40,mhru))
       allocate (wtraa(40,mhru))

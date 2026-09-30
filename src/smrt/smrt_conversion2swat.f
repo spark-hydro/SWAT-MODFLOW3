@@ -568,7 +568,7 @@
 
       !calculate gw (total groundwater volume in the watershed) -----------------------------------------------------------------
       aquifer_gw_volume = 0.
-      if(IUNIT(1)) then
+      if(IUNIT(1) /= 0) then
         num_layer = mf_NTOP
       else
         num_layer = NLAY

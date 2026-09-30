@@ -314,7 +314,7 @@
 	  endif
 
         !! compute ground water contribution
-        if(mf_active) computegw = .false. !rtb MODFLOW
+        if(mf_active /= 0) computegw = .false. !rtb MODFLOW
         call gwmod
         call gwmod_deep
         call smrt_modifySWATgw !rtb MODFLOW

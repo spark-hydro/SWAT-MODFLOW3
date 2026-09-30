@@ -59,6 +59,8 @@
           read(6003,*) (h2d_map(i)%dhru_id(j),j=1,num_hru_dhrus) ! list of dhru ID numbers which contribute to this hru
           read(6003,*) (h2d_map(i)%dhru_perc(j),j=1,num_hru_dhrus) ! list of % areas of that dhru contributing to this hru
         else
+          allocate(h2d_map(i)%dhru_id(0))
+          allocate(h2d_map(i)%dhru_perc(0))
           read(6003,*)
           read(6003,*)
         endif

@@ -109,7 +109,7 @@
 
         enddo
       endif
-      irrig_depth = 0. !zero out, to prepare for SWAT's next day calculations
+      if(allocated(irrig_depth)) irrig_depth = 0. !zero out, to prepare for SWAT's next day calculations
 
       return
       end

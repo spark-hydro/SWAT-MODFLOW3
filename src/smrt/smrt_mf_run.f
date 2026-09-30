@@ -32,7 +32,7 @@
 
 
         !Print out SWAT-MODFLOW variable averages (rtb avg) -----------------------------------------------------------
-        if(swatmf_out_avg) then
+        if(swatmf_out_avg /= 0) then
         if(leapyr.eq.1) then
           days_in_month = month_days
         else
@@ -118,7 +118,7 @@
           smrt_DP_tot_mo = 0.
           smrt_GWSW_MF_tot_mo = 0.
           smrt_GWSW_SWAT_tot_mo = 0.
-          smrt_csolute_tot_mo = 0.
+          if(rt_active.eq.1) smrt_csolute_tot_mo = 0.
           do k=1,nlay
             do j=1,ncol
               do i=1,nrow
@@ -208,7 +208,7 @@
             smrt_DP_tot_yr = 0.
             smrt_GWSW_MF_tot_yr = 0.
             smrt_GWSW_SWAT_tot_yr = 0.
-            smrt_csolute_tot_yr = 0.
+            if(rt_active.eq.1) smrt_csolute_tot_yr = 0.
             do k=1,nlay
               do j=1,ncol
                 do i=1,nrow
