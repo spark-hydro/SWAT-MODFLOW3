@@ -1,0 +1,56 @@
+# SWAT-MODFLOW3 CI, modeled on swat-model/swatplus (.github/workflows/test.yml)
+# Build only: the regression dataset is not in git, so no tests run here yet.
+
+name: Build SWAT-MODFLOW3
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: ${{ matrix.toolchain.compiler }} ${{ matrix.build_type }} (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        build_type: [Release, Debug]
+        toolchain:
+          - {compiler: gcc, version: 13}
+          - {compiler: intel, version: '2025.2'}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-tags: true
+          fetch-depth: 0
+
+      - name: Install compiler
+        uses: fortran-lang/setup-fortran@v1
+        id: setup-fortran
+        with:
+          compiler: ${{ matrix.toolchain.compiler }}
+          version: ${{ matrix.toolchain.version }}
+
+      - name: Configure
+        run: |
+          echo "Fortran compiler: ${{ env.FC }}"
+          cmake --version
+          cmake -B build \
+            -D CMAKE_Fortran_COMPILER=${{ env.FC }} \
+            -D CMAKE_BUILD_TYPE=${{ matrix.build_type }}
+
+      - name: Build
+        run: cmake --build build --parallel 4
+
+      - name: Check executable
+        run: |
+          ls -hl build/swatmf3-*
+          file build/swatmf3-*
