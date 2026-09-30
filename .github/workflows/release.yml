@@ -1,0 +1,94 @@
+# SWAT-MODFLOW3 release, modeled on swat-model/swatplus (.github/workflows/build.yml)
+#
+# Push a tag (e.g. v1.2.0) to build Release executables and attach them, zipped,
+# to a new GitHub Release:  git tag v1.2.0 && git push origin v1.2.0
+# Manual runs and pull requests that change this file only build and upload
+# workflow artifacts (no release is created).
+
+name: Release SWAT-MODFLOW3
+
+on:
+  push:
+    tags:
+      - 'v*'
+  pull_request:
+    paths:
+      - '.github/workflows/release.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - {name: gnu-linux,   os: ubuntu-latest,  compiler: gcc,   version: 13,       generator: 'Unix Makefiles'}
+          - {name: gnu-windows, os: windows-latest, compiler: gcc,   version: 13,       generator: 'MinGW Makefiles'}
+          - {name: intel-linux, os: ubuntu-latest,  compiler: intel, version: '2025.2', generator: 'Unix Makefiles'}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-tags: true
+          fetch-depth: 0
+
+      - name: Install compiler
+        uses: fortran-lang/setup-fortran@v1
+        id: setup-fortran
+        with:
+          compiler: ${{ matrix.compiler }}
+          version: ${{ matrix.version }}
+
+      - name: Build
+        id: build_exe
+        shell: bash
+        run: |
+          echo "Fortran compiler: ${{ env.FC }}"
+          cmake --version
+
+          # the version in the file name comes from `git describe --tags` (see CMakeLists.txt)
+          cmake -B build -G "${{ matrix.generator }}" \
+            -D CMAKE_Fortran_COMPILER=${{ env.FC }} \
+            -D CMAKE_BUILD_TYPE=Release
+          cmake --build build --parallel 4
+
+          ls -hl build/swatmf3-*
+          file build/swatmf3-*
+
+          exe=$(cd build && ls swatmf3-* | grep -v '\.dir$' | head -1)
+          base="${exe%.exe}"
+          # cmake -E tar makes a .zip on every OS (no zip tool needed on Windows)
+          (cd build && cmake -E tar cf "../${base}.zip" --format=zip "$exe")
+          echo "zip=${base}.zip" >> "$GITHUB_OUTPUT"
+
+      - name: Upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.name }}
+          path: ${{ steps.build_exe.outputs.zip }}
+
+  release:
+    name: Release
+    needs: build
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/')
+    steps:
+      - name: Download executables
+        uses: actions/download-artifact@v4
+        with:
+          path: dist
+          merge-multiple: true
+
+      - run: ls -hl dist
+
+      - name: Create release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*.zip
+          generate_release_notes: true
