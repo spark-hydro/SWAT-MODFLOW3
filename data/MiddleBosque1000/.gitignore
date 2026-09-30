@@ -1,0 +1,16 @@
+# Keep the model small: skip backups, edit logs and outputs a run recreates.
+# (The reference outputs used by scripts/regress.py are kept: output.std, output.hru,
+# output.rsv and swatmf_out_*.)
+mf_1000.bak
+mf_1000.mmZLib
+*.archive
+*EditLog*
+*.old
+mf_1000.cbc
+mf_1000.fdn
+mf_1000.fhd
+mf_1000.lst
+fort.*
+*.exe
+# the repo-wide *.tmp rule would drop the weather file referenced by file.cio
+!tmp1.tmp
