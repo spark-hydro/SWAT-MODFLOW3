@@ -364,3 +364,9 @@ FodyWeavers.xsd
 
 # build folder
 SWAT-MODFLOW3/
+
+# CMake out-of-source build dirs
+/build/
+
+
+/swatmf3-dataset/

@@ -1,0 +1,91 @@
+{
+    "version": 3,
+    "configurePresets": [
+        {
+            "name": "gfortran_debug_linux",
+            "displayName": "gfortran debug (Linux)",
+            "binaryDir": "build/debug",
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Linux"
+            },
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "CMAKE_INSTALL_PREFIX": "build/debug",
+                "CMAKE_Fortran_COMPILER": "gfortran"
+            },
+            "generator": "Ninja"
+        },
+        {
+            "name": "gfortran_debug_windows",
+            "displayName": "gfortran debug (Windows)",
+            "binaryDir": "build/debug",
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Windows"
+            },
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "CMAKE_INSTALL_PREFIX": "build/debug",
+                "CMAKE_Fortran_COMPILER": "gfortran"
+            },
+            "generator": "Ninja"
+        },
+        {
+            "name": "ifx_debug",
+            "displayName": "ifx debug",
+            "binaryDir": "build/debug",
+            "generator": "Ninja",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "CMAKE_INSTALL_PREFIX": "build/debug",
+                "CMAKE_Fortran_COMPILER": "ifx"
+            }
+        },
+        {
+            "name": "gfortran_release_linux",
+            "displayName": "gfortran release (Linux)",
+            "binaryDir": "build/release",
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Linux"
+            },
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "CMAKE_INSTALL_PREFIX": "build/release",
+                "CMAKE_Fortran_COMPILER": "gfortran"
+            },
+            "generator": "Ninja"
+        },
+        {
+            "name": "gfortran_release_windows",
+            "displayName": "gfortran release (Windows)",
+            "binaryDir": "build/release",
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Windows"
+            },
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "CMAKE_INSTALL_PREFIX": "build/release",
+                "CMAKE_Fortran_COMPILER": "gfortran"
+            },
+            "generator": "Ninja"
+        },
+        {
+            "name": "ifx_release",
+            "displayName": "ifx release",
+            "binaryDir": "build/release",
+            "generator": "Ninja",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "CMAKE_INSTALL_PREFIX": "build/release",
+                "CMAKE_Fortran_COMPILER": "ifx"
+            }
+        }
+    ]
+}
