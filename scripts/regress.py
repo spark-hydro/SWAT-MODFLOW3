@@ -6,7 +6,7 @@ executable there, and compares every numeric value in the new outputs with
 the reference outputs shipped in the dataset (written by the Windows/Intel
 build). The dataset itself is never modified.
 
-    python3 scripts/regress.py build/release/swatmf3-*-Rel swatmf3-dataset
+    python3 scripts/regress.py build/release/swatmf3-*-Rel data/MiddleBosque1000
 
 Exit code 0 = run finished and all files match within tolerance.
 """

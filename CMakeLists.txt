@@ -104,10 +104,10 @@ set_target_properties(${SWATMF_EXE} PROPERTIES
 install(TARGETS ${SWATMF_EXE} RUNTIME DESTINATION ${PROJECT_SOURCE_DIR}/builds)
 
 # Regression test: runs the dataset and compares with its reference outputs.
-# The dataset is not in git (see .gitignore); pass -DSWATMF_DATASET=<dir> or
-# put it in ./swatmf3-dataset.
+# Uses the example model in data/MiddleBosque1000 (in git); pass
+# -DSWATMF_DATASET=<dir> to use another model.
 find_package(Python3 QUIET COMPONENTS Interpreter)
-set(SWATMF_DATASET "${PROJECT_SOURCE_DIR}/swatmf3-dataset" CACHE PATH "Model folder for the regression test")
+set(SWATMF_DATASET "${PROJECT_SOURCE_DIR}/data/MiddleBosque1000" CACHE PATH "Model folder for the regression test")
 if(Python3_FOUND AND EXISTS "${SWATMF_DATASET}/file.cio")
     add_test(NAME dataset_regression
              COMMAND ${Python3_EXECUTABLE} ${PROJECT_SOURCE_DIR}/scripts/regress.py
