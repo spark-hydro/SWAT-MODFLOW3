@@ -13,7 +13,7 @@
 !  ACCESS specifier --
 !
 !    Standard Fortran -- Use unless there is a reason to do otherwise.
-      DATA ACCESS/'SEQUENTIAL'/
+      DATA ACCESS/'STREAM'/
 !
 !
 !  FORM specifier --
@@ -27,7 +27,11 @@
 !    files.  This may make it possible for the non-formatted files used
 !    by MODFLOW to be used with programs that are compiled by other
 !    compilers.
-      DATA FORM/'BINARY'/
+!
+!    mf_openspec.inc (SWAT-MODFLOW3): 'BINARY' is Intel-only. Unformatted
+!    stream access writes and reads the same byte layout (checked with ifx)
+!    and also works with gfortran.
+      DATA FORM/'UNFORMATTED'/
 !
 !
 !  OPEN-statement specifiers related to file-sharing.
