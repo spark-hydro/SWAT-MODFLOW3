@@ -1,5 +1,6 @@
 # SWAT-MODFLOW3 CI, modeled on swat-model/swatplus (.github/workflows/test.yml)
-# Build only: the regression dataset is not in git, so no tests run here yet.
+# Builds, then runs the dataset regression (scripts/regress.py via ctest). The
+# dataset is not in git: it is downloaded from the `dataset-v1` GitHub Release.
 
 name: Build SWAT-MODFLOW3
 
@@ -39,6 +40,16 @@ jobs:
           compiler: ${{ matrix.toolchain.compiler }}
           version: ${{ matrix.toolchain.version }}
 
+      # Before configure: CMake only registers the regression test if the dataset exists.
+      - name: Download regression dataset
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release download dataset-v1 -p swatmf3-dataset.tar.gz
+          mkdir swatmf3-dataset
+          tar xzf swatmf3-dataset.tar.gz -C swatmf3-dataset
+          ls swatmf3-dataset | wc -l
+
       - name: Configure
         run: |
           echo "Fortran compiler: ${{ env.FC }}"
@@ -54,3 +65,6 @@ jobs:
         run: |
           ls -hl build/swatmf3-*
           file build/swatmf3-*
+
+      - name: Regression test
+        run: ctest --test-dir build --output-on-failure --no-tests=error
