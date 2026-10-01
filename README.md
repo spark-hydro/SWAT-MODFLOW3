@@ -2,6 +2,7 @@
 [![Build](https://img.shields.io/github/actions/workflow/status/spark-hydro/SWAT-MODFLOW3/build.yml?branch=main&style=flat-square&label=build%20%2B%20regression%20test)](https://github.com/spark-hydro/SWAT-MODFLOW3/actions/workflows/build.yml)
 [![Downloads](https://img.shields.io/github/downloads/spark-hydro/SWAT-MODFLOW3/total?style=flat-square)](https://github.com/spark-hydro/SWAT-MODFLOW3/releases)
 [![License](https://img.shields.io/github/license/spark-hydro/SWAT-MODFLOW3?style=flat-square)](LICENSE)
+[![Docker](https://img.shields.io/badge/docker-ghcr.io-2496ED?style=flat-square&logo=docker&logoColor=white)](https://github.com/spark-hydro/SWAT-MODFLOW3/pkgs/container/swatmf3)
 
 # SWAT-MODFLOW3
 
