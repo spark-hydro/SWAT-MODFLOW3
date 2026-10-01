@@ -94,6 +94,13 @@ file(GLOB sources CONFIGURE_DEPENDS
     src/rt3d/*.f   src/rt3d/*.f90
     src/smrt/*.f   src/smrt/*.f90
 )
+# Version banner (printed at the start of a run): filled in at configure time
+string(TIMESTAMP ISO "%Y-%m-%d %H:%M:%S UTC" UTC)
+set(SWAT_VERSION "${TAG}")
+configure_file("${PROJECT_SOURCE_DIR}/src/swat/version_info.f90.in"
+               "${CMAKE_BINARY_DIR}/version_info.f90" @ONLY)
+list(APPEND sources "${CMAKE_BINARY_DIR}/version_info.f90")
+
 add_executable(${SWATMF_EXE} ${sources})
 # mf_openspec.inc is INCLUDEd by several MODFLOW files
 target_include_directories(${SWATMF_EXE} PRIVATE src/modflow)
