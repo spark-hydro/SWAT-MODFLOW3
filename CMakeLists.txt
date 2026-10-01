@@ -108,7 +108,7 @@ set_target_properties(${SWATMF_EXE} PROPERTIES
     Fortran_MODULE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/${SWATMF_EXE}.dir/mod"
 )
 
-install(TARGETS ${SWATMF_EXE} RUNTIME DESTINATION ${PROJECT_SOURCE_DIR}/builds)
+install(TARGETS ${SWATMF_EXE} RUNTIME DESTINATION bin)
 
 # Regression test: runs the dataset and compares with its reference outputs.
 # Uses the example model in data/MiddleBosque1000 (in git); pass
