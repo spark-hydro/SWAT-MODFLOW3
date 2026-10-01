@@ -3,7 +3,8 @@
 # Push a tag (e.g. v1.2.0) to build Release executables and attach them, zipped,
 # to a new GitHub Release:  git tag v1.2.0 && git push origin v1.2.0
 # Manual runs and pull requests that change this file only build and upload
-# workflow artifacts (no release is created).
+# workflow artifacts (no release is created). The Docker image is built and tested
+# on those runs too, but only pushed to ghcr.io on a tag.
 
 name: Release SWAT-MODFLOW3
 
@@ -92,3 +93,39 @@ jobs:
         with:
           files: dist/*.zip
           generate_release_notes: true
+
+  docker:
+    name: docker image (ghcr.io)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-tags: true
+          fetch-depth: 0
+
+      - name: Build image
+        run: |
+          IMAGE="ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/swatmf3"   # image names must be lowercase
+          VERSION="$(git describe --tags --always)"
+          echo "IMAGE=$IMAGE" >> "$GITHUB_ENV"
+          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
+          docker build -t "$IMAGE:$VERSION" --build-arg VERSION="$VERSION" .
+
+      - name: Test image
+        run: docker run --rm "$IMAGE:$VERSION" --version
+
+      # only on a tag: this publishes the image (public, once the package is set to public)
+      - name: Log in to ghcr.io
+        if: startsWith(github.ref, 'refs/tags/')
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+
+      - name: Push image
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          docker tag "$IMAGE:$VERSION" "$IMAGE:latest"
+          docker push "$IMAGE:$VERSION"
+          docker push "$IMAGE:latest"
