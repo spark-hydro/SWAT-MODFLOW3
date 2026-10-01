@@ -66,6 +66,16 @@ cmake --preset gfortran_release_linux
 cmake --build build/release
 ```
 
+## Docker
+
+A `Dockerfile` is included to run the model in a container, for example on a cloud server or a
+cluster; see [BUILD.md](BUILD.md#docker):
+
+```bash
+docker build -t swatmf3 .
+docker run --rm -v /path/to/my_model:/model swatmf3
+```
+
 ## Testing
 
 `scripts/regress.py` runs the example model and compares every number in the outputs with the
@@ -76,7 +86,8 @@ the downloads above when a version tag such as `v1.2.2` is pushed. See [BUILD.md
 
 The SWAT-MODFLOW-RT3D linking code in `src/smrt` was written at Colorado State University; see the
 author notes at the top of the source files. SWAT2012, MODFLOW-NWT and RT3D are the work of their
-respective developers.
+respective developers. The Docker setup is based on a contribution by Paul van Genuchten
+([@pvgenuchten](https://github.com/pvgenuchten)).
 
 ## License
 
