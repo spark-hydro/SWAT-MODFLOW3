@@ -1,3 +1,8 @@
+[![Release](https://img.shields.io/github/v/release/spark-hydro/SWAT-MODFLOW3?style=flat-square)](https://github.com/spark-hydro/SWAT-MODFLOW3/releases)
+[![Build](https://img.shields.io/github/actions/workflow/status/spark-hydro/SWAT-MODFLOW3/build.yml?branch=main&style=flat-square&label=build)](https://github.com/spark-hydro/SWAT-MODFLOW3/actions/workflows/build.yml)
+[![Downloads](https://img.shields.io/github/downloads/spark-hydro/SWAT-MODFLOW3/total?style=flat-square)](https://github.com/spark-hydro/SWAT-MODFLOW3/releases)
+[![License](https://img.shields.io/github/license/spark-hydro/SWAT-MODFLOW3?style=flat-square)](LICENSE)
+
 # SWAT-MODFLOW3
 
 SWAT-MODFLOW3 couples the watershed model **SWAT2012** (Rev. 636) with the groundwater models
@@ -73,4 +78,9 @@ The SWAT-MODFLOW-RT3D linking code in `src/smrt` was written at Colorado State U
 author notes at the top of the source files. SWAT2012, MODFLOW-NWT and RT3D are the work of their
 respective developers.
 
-<!-- TODO (maintainer): add the references to cite for SWAT-MODFLOW, the maintainers and a license. -->
+## License
+
+Released under the GNU Lesser General Public License v2.1, the same license as SWAT+. See
+[LICENSE](LICENSE).
+
+<!-- TODO (maintainer): add the references to cite for SWAT-MODFLOW and the maintainers. -->
