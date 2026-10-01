@@ -1,5 +1,5 @@
 [![Release](https://img.shields.io/github/v/release/spark-hydro/SWAT-MODFLOW3?style=flat-square)](https://github.com/spark-hydro/SWAT-MODFLOW3/releases)
-[![Docker](https://ghcr-badge.egpl.dev/spark-hydro/swatmf3/latest_tag?trim=major&label=docker)](https://github.com/spark-hydro/SWAT-MODFLOW3/pkgs/container/swatmf3)
+[![Docker](https://ghcr-badge.egpl.dev/spark-hydro/swatmf3/latest_tag?trim=major&label=docker&color=%23007ec6)](https://github.com/spark-hydro/SWAT-MODFLOW3/pkgs/container/swatmf3)
 [![Build](https://img.shields.io/github/actions/workflow/status/spark-hydro/SWAT-MODFLOW3/build.yml?branch=main&style=flat-square&label=build%20%2B%20regression%20test)](https://github.com/spark-hydro/SWAT-MODFLOW3/actions/workflows/build.yml)
 [![Downloads](https://img.shields.io/github/downloads/spark-hydro/SWAT-MODFLOW3/total?style=flat-square)](https://github.com/spark-hydro/SWAT-MODFLOW3/releases)
 [![License](https://img.shields.io/github/license/spark-hydro/SWAT-MODFLOW3?style=flat-square)](LICENSE)
