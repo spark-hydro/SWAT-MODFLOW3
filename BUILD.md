@@ -105,6 +105,17 @@ image that runs a model from a mounted folder. Useful for cloud and cluster runs
 not want to install a compiler. The Docker idea comes from a contribution by Paul van Genuchten
 ([@pvgenuchten](https://github.com/pvgenuchten), PR #6).
 
+Ready-made images are published with every release on the GitHub Container Registry, so you do
+not need to build anything:
+
+```bash
+docker pull ghcr.io/spark-hydro/swatmf3:latest          # or a version, e.g. :v1.2.4
+docker run --rm ghcr.io/spark-hydro/swatmf3:latest --version
+docker run --rm -v /path/to/my_model:/model ghcr.io/spark-hydro/swatmf3:latest
+```
+
+To build the image yourself from the source:
+
 ```bash
 docker build -t swatmf3 --build-arg VERSION=$(git describe --tags --always) .
 docker run --rm swatmf3 --version
@@ -146,5 +157,5 @@ in `data/MiddleBosque1000`.
   `CMakeLists.txt` to see them.
 - GitHub Actions also builds the Docker image and runs the regression inside it on every pull request.
 - GitHub Actions builds with gfortran and ifx and runs the regression on every pull request
-  (`.github/workflows/build.yml`). Pushing a tag like `v1.2.2` builds the three downloads above
-  and attaches them to a release (`.github/workflows/release.yml`).
+  (`.github/workflows/build.yml`). Pushing a tag like `v1.2.5` builds the three downloads above,
+  attaches them to a release and publishes the Docker image (`.github/workflows/release.yml`).

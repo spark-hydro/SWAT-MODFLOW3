@@ -68,13 +68,16 @@ cmake --build build/release
 
 ## Docker
 
-A `Dockerfile` is included to run the model in a container, for example on a cloud server or a
-cluster; see [BUILD.md](BUILD.md#docker):
+A ready-made Docker image lets you run the model in a container, for example on a cloud server or a
+cluster, without installing a compiler (see [BUILD.md](BUILD.md#docker) to build it yourself):
 
 ```bash
-docker build -t swatmf3 .
-docker run --rm -v /path/to/my_model:/model swatmf3
+docker pull ghcr.io/spark-hydro/swatmf3:latest
+docker run --rm -v /path/to/my_model:/model ghcr.io/spark-hydro/swatmf3:latest
 ```
+
+Images for every release are on the GitHub Container Registry
+([`ghcr.io/spark-hydro/swatmf3`](https://github.com/spark-hydro/SWAT-MODFLOW3/pkgs/container/swatmf3)).
 
 ## Testing
 
