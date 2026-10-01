@@ -98,6 +98,23 @@ swatmf3-<version>-gnu-lin_x86_64-Rel --version
 (`--version` is available in builds made after v1.2.1.) The same information is printed at
 the start of every run.
 
+## Docker
+
+The `Dockerfile` builds SWAT-MODFLOW3 with CMake and gfortran on Ubuntu 24.04 and gives a small
+image that runs a model from a mounted folder. Useful for cloud and cluster runs, or when you do
+not want to install a compiler. The Docker idea comes from a contribution by Paul van Genuchten
+([@pvgenuchten](https://github.com/pvgenuchten), PR #6).
+
+```bash
+docker build -t swatmf3 --build-arg VERSION=$(git describe --tags --always) .
+docker run --rm swatmf3 --version
+docker run --rm -v /path/to/my_model:/model swatmf3
+```
+
+- `-v /path/to/my_model:/model` attaches your model folder (with `file.cio`); the outputs are written
+  back into it. Add `--user "$(id -u):$(id -g)"` so the files belong to you instead of root.
+- `VERSION` is only used for the version shown by `--version`; without it the image says `unknown`.
+
 ## Testing
 
 `data/MiddleBosque1000` is an example model (one year, 1985) with reference outputs from the
@@ -127,6 +144,7 @@ in `data/MiddleBosque1000`.
 - The gfortran flags (`-std=legacy -fdec -fallow-argument-mismatch`, fixed-line length off) are
   needed for the legacy MODFLOW/SWAT code; warnings are turned off with `-w`. Remove `-w` in
   `CMakeLists.txt` to see them.
+- GitHub Actions also builds the Docker image and runs the regression inside it on every pull request.
 - GitHub Actions builds with gfortran and ifx and runs the regression on every pull request
   (`.github/workflows/build.yml`). Pushing a tag like `v1.2.2` builds the three downloads above
   and attaches them to a release (`.github/workflows/release.yml`).

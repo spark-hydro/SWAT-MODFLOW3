@@ -58,3 +58,27 @@ jobs:
 
       - name: Regression test
         run: ctest --test-dir build --output-on-failure --no-tests=error
+
+  docker:
+    name: docker image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-tags: true
+          fetch-depth: 0
+
+      - name: Build image
+        run: docker build -t swatmf3:ci --build-arg VERSION="$(git describe --tags --always)" .
+
+      - name: --version
+        run: docker run --rm swatmf3:ci --version
+
+      - name: Regression test inside the container
+        run: |
+          # regress.py runs this wrapper like the executable, in a temporary copy of the model
+          printf '#!/bin/sh\nexec docker run --rm --user "$(id -u):$(id -g)" -v "$PWD":/model swatmf3:ci\n' > run_in_docker.sh
+          chmod +x run_in_docker.sh
+          python3 scripts/regress.py ./run_in_docker.sh data/MiddleBosque1000
+
