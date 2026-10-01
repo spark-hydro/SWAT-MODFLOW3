@@ -54,12 +54,7 @@
       use smrt_parm
       implicit none
       prog = "SWAT Mar 17 2015    VER 2012/Rev 636_smrt"
-      write (*,1000)
- 1000 format(1x,"               SWAT2012               ",/,             
-     &          "               Rev. 636_smrt          ",/,             
-     &          "      Soil & Water Assessment Tool    ",/,             
-     &          "               PC Version             ",/,             
-     &          " Program reading from file.cio . . . executing",/)
+      call swatmf_banner
 
 !! process input
 		
