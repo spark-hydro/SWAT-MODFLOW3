@@ -96,9 +96,16 @@ author notes at the top of the source files. SWAT2012, MODFLOW-NWT and RT3D are 
 respective developers. The Docker setup is based on a contribution by Paul van Genuchten
 ([@pvgenuchten](https://github.com/pvgenuchten)).
 
+If you use SWAT-MODFLOW in your work, please cite:
+
+> Bailey, R. T., Wible, T. C., Arabi, M., Records, R. M., and Ditty, J. (2016). Assessing
+> regional-scale spatio-temporal patterns of groundwater–surface water interactions using a coupled
+> SWAT-MODFLOW model. *Hydrological Processes*, 30: 4420–4433.
+> [doi:10.1002/hyp.10933](https://doi.org/10.1002/hyp.10933)
+
 ## License
 
 Released under the GNU Lesser General Public License v2.1, the same license as SWAT+. See
 [LICENSE](LICENSE).
 
-<!-- TODO (maintainer): add the references to cite for SWAT-MODFLOW and the maintainers. -->
+<!-- TODO (maintainer): add the maintainers. -->
