@@ -114,6 +114,20 @@ docker run --rm ghcr.io/spark-hydro/swatmf3:latest --version
 docker run --rm -v /path/to/my_model:/model ghcr.io/spark-hydro/swatmf3:latest
 ```
 
+The image contains two builds of the program. The normal (fast) build runs by default. If a run
+fails or you want more checks, start the container with `-e DEBUG=1` to use the **debug build**,
+which checks array bounds and reports the array and line where something goes wrong. It is about
+3 times slower, so use it only to find a problem:
+
+```bash
+docker run --rm -e DEBUG=1 -v /path/to/my_model:/model ghcr.io/spark-hydro/swatmf3:latest
+```
+
+`DEBUG=0`, `DEBUG=false` or leaving it out gives the normal build. The banner at the start of the
+run shows which one is running (`Release` or `Debug`). The debug build leaves out the
+floating-point traps that the Debug builds made with CMake have, so harmless divide-by-zero
+cases do not stop a model.
+
 To build the image yourself from the source:
 
 ```bash

@@ -115,8 +115,11 @@ jobs:
           echo "VERSION=$VERSION" >> "$GITHUB_ENV"
           docker build -t "$IMAGE:$VERSION" --build-arg VERSION="$VERSION" .
 
-      - name: Test image
-        run: docker run --rm "$IMAGE:$VERSION" --version
+      - name: Test image (release, and debug with -e DEBUG=1)
+        run: |
+          docker run --rm "$IMAGE:$VERSION" --version | grep -q "Release"
+          docker run --rm -e DEBUG=1 "$IMAGE:$VERSION" --version | grep -q "Debug"
+          docker run --rm "$IMAGE:$VERSION" --version
 
       # only on a tag: this publishes the image (public, once the package is set to public)
       - name: Log in to ghcr.io

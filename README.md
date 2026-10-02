@@ -77,6 +77,9 @@ docker pull ghcr.io/spark-hydro/swatmf3:latest
 docker run --rm -v /path/to/my_model:/model ghcr.io/spark-hydro/swatmf3:latest
 ```
 
+If something goes wrong, add `-e DEBUG=1` to use the debug build (about 3 times slower; it checks
+array bounds and names the array and line of a problem). See [BUILD.md](BUILD.md#docker).
+
 Images for every release are on the GitHub Container Registry
 ([`ghcr.io/spark-hydro/swatmf3`](https://github.com/spark-hydro/SWAT-MODFLOW3/pkgs/container/swatmf3)).
 
