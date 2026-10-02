@@ -72,8 +72,11 @@ jobs:
       - name: Build image
         run: docker build -t swatmf3:ci --build-arg VERSION="$(git describe --tags --always)" .
 
-      - name: --version
-        run: docker run --rm swatmf3:ci --version
+      - name: --version (release, and debug with -e DEBUG=1)
+        run: |
+          docker run --rm swatmf3:ci --version | grep -q "Release"
+          docker run --rm -e DEBUG=1 swatmf3:ci --version | grep -q "Debug"
+          docker run --rm swatmf3:ci --version
 
       - name: Regression test inside the container
         run: |
@@ -81,4 +84,10 @@ jobs:
           printf '#!/bin/sh\nexec docker run --rm --user "$(id -u):$(id -g)" -v "$PWD":/model swatmf3:ci\n' > run_in_docker.sh
           chmod +x run_in_docker.sh
           python3 scripts/regress.py ./run_in_docker.sh data/MiddleBosque1000
+
+      - name: Regression test inside the container, debug build (-e DEBUG=1)
+        run: |
+          printf '#!/bin/sh\nexec docker run --rm --user "$(id -u):$(id -g)" -e DEBUG=1 -v "$PWD":/model swatmf3:ci\n' > run_in_docker_debug.sh
+          chmod +x run_in_docker_debug.sh
+          python3 scripts/regress.py ./run_in_docker_debug.sh data/MiddleBosque1000
 

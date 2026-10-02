@@ -12,6 +12,8 @@ cmake_host_system_information(RESULT os_like QUERY DISTRIB_ID_LIKE)
 
 project(swatmf3 VERSION 3.0 LANGUAGES Fortran)
 
+option(SWATMF_FPE_TRAP "gfortran Debug builds: trap floating-point errors (invalid, divide by zero, overflow)" ON)
+
 include(CTest)
 
 if(NOT TAG)
@@ -34,7 +36,12 @@ endif()
 # extension, so no -ffixed/-ffree flag is needed. Legacy MODFLOW/SWAT code needs -std=legacy.
 if(CMAKE_Fortran_COMPILER_ID MATCHES "GNU")
     set(fdialect "-std=legacy -fdec -fallow-argument-mismatch -ffixed-line-length-none -ffree-line-length-none -fbacktrace -finit-local-zero -fno-unsafe-math-optimizations -frounding-math -w")
-    set(fdebug   "-g -O0 -fcheck=bounds -ffpe-trap=invalid,zero,overflow")
+    set(fdebug   "-g -O0 -fcheck=bounds")
+    if(SWATMF_FPE_TRAP)
+        # stop at floating-point errors; the Docker debug build turns this off (harmless
+        # divide-by-zero etc. would stop a model that is otherwise fine)
+        string(APPEND fdebug " -ffpe-trap=invalid,zero,overflow")
+    endif()
     set(frelease "-O2")
     set(FFC      "gnu")
     string(TOLOWER "${os_id}" os_id_lc)
