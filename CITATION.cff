@@ -1,0 +1,45 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the paper below."
+title: "SWAT-MODFLOW3"
+type: software
+authors:
+  - family-names: "Park"
+    given-names: "Seonggyu"
+    orcid: "https://orcid.org/0000-0001-9551-911X"
+  - family-names: "Bailey"
+    given-names: "R. T."
+  - family-names: "Wible"
+    given-names: "T. C."
+  - family-names: "Arabi"
+    given-names: "M."
+  - family-names: "Records"
+    given-names: "R. M."
+  - family-names: "Ditty"
+    given-names: "J."
+repository-code: "https://github.com/spark-hydro/SWAT-MODFLOW3"
+license: LGPL-2.1-only
+keywords:
+  - SWAT
+  - MODFLOW
+  - groundwater-surface water interaction
+  - hydrology
+preferred-citation:
+  type: article
+  authors:
+    - family-names: "Bailey"
+      given-names: "R. T."
+    - family-names: "Wible"
+      given-names: "T. C."
+    - family-names: "Arabi"
+      given-names: "M."
+    - family-names: "Records"
+      given-names: "R. M."
+    - family-names: "Ditty"
+      given-names: "J."
+  title: "Assessing regional-scale spatio-temporal patterns of groundwater–surface water interactions using a coupled SWAT-MODFLOW model"
+  journal: "Hydrological Processes"
+  year: 2016
+  volume: 30
+  start: 4420
+  end: 4433
+  doi: "10.1002/hyp.10933"
