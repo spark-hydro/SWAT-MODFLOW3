@@ -3,9 +3,6 @@ message: "If you use this software, please cite the paper below."
 title: "SWAT-MODFLOW3"
 type: software
 authors:
-  - family-names: "Park"
-    given-names: "Seonggyu"
-    orcid: "https://orcid.org/0000-0001-9551-911X"
   - family-names: "Bailey"
     given-names: "R. T."
   - family-names: "Wible"
